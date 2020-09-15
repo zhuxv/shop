@@ -63,6 +63,8 @@ class SyncProducts extends Command
                     ];
                     $req['body'][] = $data;
                 }
+
+                dd($req);
                 try{
                     // 使用 bulk 方法批量创建
                     $es->bulk($req);

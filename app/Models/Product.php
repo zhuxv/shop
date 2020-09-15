@@ -91,14 +91,14 @@ class Product extends Model
         // 只取出需要的 SKU 字段
         $arr['skus'] = $this->skus->map(function (ProductSku $productSku) {
             return Arr::only($productSku->toArray(), ['title', 'description', 'price']);
-        });
+        })->toArray();
         // 只取出需要的商品属性字段
         $arr['properties'] = $this->properties->map(function (ProductProperty $productProperty) {
             // 对应的增加一个 search_value 字段, 用符号 : 将属性名和属性值拼接起来
             return array_merge(Arr::only($productProperty->toArray(), ['name', 'value']), [
                 'search_value' => $productProperty->name.':'.$productProperty->value
             ]);
-        });
+        })->toArray();
 
         return $arr;
     }
