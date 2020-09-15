@@ -62,14 +62,14 @@ class SyncProducts extends Command
                         ]
                     ];
                     $req['body'][] = $data;
-                    try{
-                        // 使用 bulk 方法批量创建
-                        $es->create($req);
-                    } catch (\Exception $exception) {
-                        $this->error($exception->getMessage());
-                    }
                 }
-
+                try{
+                    dd($req);
+                    // 使用 bulk 方法批量创建
+                    $es->bulk($req);
+                } catch (\Exception $exception) {
+                    $this->error($exception->getMessage());
+                }
             });
         $this->info('同步完成');
     }
