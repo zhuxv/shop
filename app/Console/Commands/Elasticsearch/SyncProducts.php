@@ -65,7 +65,7 @@ class SyncProducts extends Command
                 }
                 try{
                     // 使用 bulk 方法批量创建
-                    $es->bulk($req);
+                    dd($es->bulk($req));
                 } catch (\Exception $exception) {
                     $this->error($exception->getMessage());
                 }
