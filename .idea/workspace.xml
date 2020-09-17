@@ -17,7 +17,7 @@
         <entry file="file://$PROJECT_DIR$/app/Console/Commands/Elasticsearch/SyncProducts.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="356">
-              <caret line="67" column="20" lean-forward="true" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
+              <caret line="67" column="40" lean-forward="false" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -364,12 +364,12 @@
       <workItem from="1600048033080" duration="3332000" />
       <workItem from="1600135350054" duration="16566000" />
       <workItem from="1600232856732" duration="5463000" />
-      <workItem from="1600306926004" duration="2156000" />
+      <workItem from="1600306926004" duration="2761000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="506382000" />
+    <option name="totallyTimeSpent" value="506987000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -772,7 +772,7 @@
     <entry file="file://$PROJECT_DIR$/app/Console/Commands/Elasticsearch/SyncProducts.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="356">
-          <caret line="67" column="20" lean-forward="true" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
+          <caret line="67" column="40" lean-forward="false" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
           <folding />
         </state>
       </provider>
