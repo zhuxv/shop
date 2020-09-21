@@ -230,8 +230,10 @@ return [
 
     ],
 
-    //
+    // 订单关闭时间
     'order_ttl' => 30,
+    // 秒杀订单关闭时间
+    'seckill_order_ttl' => 600,
 
     // 分期相关, 注意: 实际项目中应考虑存储在数据库中, 并在后台管理配置
     'installment_fee_rate' => [

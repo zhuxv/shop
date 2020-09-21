@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Exception;
+use Illuminate\Support\Facades\Redis;
 
 class CloseOrder implements ShouldQueue
 {
@@ -52,6 +53,13 @@ class CloseOrder implements ShouldQueue
             // 循环遍历订单中的商品 SKU, 将订单中的数量加回到SKU库存中去
             foreach ( $this->order->items as $item ) {
                 $item->productSku->addStock($item->amount);
+                // 当前订单类型是秒杀订单, 并且对应商品是上架且尚未到截止时间
+                if ( $item->order->type === Order::TYPE_SECKILL
+                    && $item->product->on_sale
+                    && !$item->product->seckill->is_after_end) {
+                    // 将 Redis 中的库存 +1
+                    Redis::incr('seckill_sku_'.$item->productSku->id);
+                }
             }
             // 关闭订单时, 如果有使用优惠券则将该优惠券的用量减少
             if ($this->order->couponCode) {

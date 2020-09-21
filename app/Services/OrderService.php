@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\UserAddress;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 Class OrderService {
 
@@ -193,6 +194,49 @@ Class OrderService {
                 throw new InternalException('未知订单支付方式：'.$order->payment_method);
                 break;
         }
+    }
+
+    public function seckill(User $user, array $addressData, ProductSku $productSku)
+    {
+        $order = \DB::transaction(function ()use($user, $addressData, $productSku){
+            // 扣减对应 SKU 库存
+            if ( $productSku->decreaseStock(1) <= 0 ) {
+                throw new InvalidRequestException('该商品库存不足');
+            }
+            // 创建一个订单
+            $order = new Order([
+                'address' => [
+                    'address' => $addressData['province'].$addressData['city'].$addressData['district'].$addressData['address'],
+                    'zip' => $addressData['zip'],
+                    'contact_name' => $addressData['contact_name'],
+                    'contact_phone' => $addressData['contact_phone']
+                ],
+                'remark' => '',
+                'total_amount' => $productSku->price,
+                'type' => Order::TYPE_SECKILL
+            ]);
+            // 订单关联到用户
+            $order->user()->associate($user);
+            // 写入数据库
+            $order->save();
+            // 创建一个新的订单并与 SKU 关联
+            $item = $order->items()->make([
+                'amount' => 1, // 秒杀商品只能一份
+                'price' => $productSku->price
+            ]);
+            $item->product()->associate($productSku->product_id);
+            $item->productSku()->associate($productSku);
+            $item->save();
+
+            Redis::decr('seckill_sku_'.$productSku->id);
+
+            return $order;
+        });
+
+        // 秒杀订单的自动关闭时间与普通订单不同
+        dispatch(new CloseOrder($order, config('app.seckill_order_ttl')));
+
+        return $order;
     }
 
 }

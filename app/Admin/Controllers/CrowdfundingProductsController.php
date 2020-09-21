@@ -4,6 +4,8 @@ namespace App\Admin\Controllers;
 
 use App\Models\CrowdfundingProduct;
 use App\Models\Product;
+use Encore\Admin\Form;
+use Encore\Admin\Grid;
 
 class CrowdfundingProductsController extends CommonProductsController
 {
@@ -20,7 +22,7 @@ class CrowdfundingProductsController extends CommonProductsController
         // TODO: Implement getProductType() method.
     }
 
-    protected function customGrid($grid)
+    protected function customGrid(Grid $grid)
     {
         // TODO: Implement customGrid() method.
         $grid->id('ID')->sortable();
@@ -37,7 +39,7 @@ class CrowdfundingProductsController extends CommonProductsController
         });
     }
 
-    protected function customForm($form)
+    protected function customForm(Form $form)
     {
         // TODO: Implement customForm() method.
         // 众筹相关字段

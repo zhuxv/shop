@@ -3,6 +3,8 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Product;
+use Encore\Admin\Form;
+use Encore\Admin\Grid;
 
 class ProductsController extends CommonProductsController
 {
@@ -23,7 +25,7 @@ class ProductsController extends CommonProductsController
         // TODO: Implement getProductType() method.
     }
 
-    protected function customGrid($grid)
+    protected function customGrid(Grid $grid)
     {
         // TODO: Implement customGrid() method.
         $grid->model()->with(['category']);
@@ -39,7 +41,7 @@ class ProductsController extends CommonProductsController
         $grid->review_count('评论数');
     }
 
-    protected function customForm($form)
+    protected function customForm(Form $form)
     {
         // TODO: Implement customForm() method.
     }

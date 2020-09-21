@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// 秒杀接口延迟校验身份
+Route::post('seckill_orders', 'OrdersController@seckill')->name('seckill_orders.store')->middleware('random_drop:80');
+
 Route::get('/', 'PagesController@root')->name('root');//->middleware('verified');
 //Route::redirect('/', '/products')->name('root');
 
@@ -48,6 +51,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('installments/{installment}', 'InstallmentsController@show')->name('installments.show');
     Route::get('installments/{installment}/alipay', 'InstallmentsController@payByAlipay')->name('installments.alipay');
     Route::get('installments/alipay/return', 'InstallmentsController@alipayReturn')->name('installments.alipay.return');
+
 });
 
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');

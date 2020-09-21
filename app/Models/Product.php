@@ -12,9 +12,12 @@ class Product extends Model
 
     const TYPE_NORMAL = 'normal';
     const TYPE_CROWDEFUNDING = 'crowdfunding';
+    const TYPE_SECKILL = 'seckill';
+
     public static $typeMap = [
         self::TYPE_NORMAL => '普通商品',
-        self::TYPE_CROWDEFUNDING => '众筹商品'
+        self::TYPE_CROWDEFUNDING => '众筹商品',
+        self::TYPE_SECKILL => '秒杀商品'
     ];
 
     /**
@@ -53,6 +56,11 @@ class Product extends Model
     public function properties()
     {
         return $this->hasMany(ProductProperty::class);
+    }
+
+    public function seckill()
+    {
+        return $this->hasOne(SeckillProduct::class);
     }
 
     /**

@@ -36,7 +36,7 @@ abstract class CommonProductsController extends AdminController {
     }
 
     // 定义一个抽象方法, 各个类型的控制器讲实现本方法来定义列表应该展示哪些字段
-    abstract protected function customGrid($grid);
+    abstract protected function customGrid(Grid $grid);
 
     protected function form()
     {
@@ -81,6 +81,6 @@ abstract class CommonProductsController extends AdminController {
     }
 
     // 定义一个抽象方法, 各个类型的控制器实现本方法来定义表单应该有的哪些额外字段
-    abstract protected function customForm($form);
+    abstract protected function customForm(Form $form);
 
 }
